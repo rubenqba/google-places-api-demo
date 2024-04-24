@@ -1,10 +1,9 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import GooglePlaceSearchBar from "@component/GooglePlaceSearchBar";
 import GoogleMapContainer from "@component/GoogleMapContainer";
 import { useGooglePlaces } from "@hook/useGooglePlaces";
 import GoogleLocationContainer from "./GoogleLocationContainer";
-import { GoogleLocationContext } from "./GoogleLocationProvider";
 import { CountryID } from "@model/countries";
 import { useGoogleCountryLocation } from "@hook/useGoogleCountryLocation";
 
