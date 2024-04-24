@@ -8,26 +8,38 @@ export const useGooglePlaces = () => {
   const [running, setRunning] = useState(false);
   const [places, setPlaces] = useState<GoogleLocation[]>([]);
 
-  const fetchPlaces = async (id: CountryID) => {
-    if (query.length > 0) {
-      console.log(`searching: ${query}`);
-      setRunning(true);
-      const res = await fetch("/api/places", {
+  const fetchPlaces = async (
+    query: string,
+    id: CountryID
+  ): Promise<GoogleLocation[]> => {
+    const search = query.trim();
+    if (search.length) {
+      console.log(`searching places similar to '${search}' in country '${id}'`);
+      return fetch("/api/places/search", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          textQuery: query,
+          textQuery: search,
           languageCode: "ES",
           regionCode: id,
         }),
+      }).then((res) => {
+        return res.json().then((data: GooglePlaceResponse) => data.places);
       });
+    }
+    return Promise.reject(new Error("empty query"));
+  };
 
-      if (res.ok) {
-        const data: GooglePlaceResponse = await res.json();
-        setPlaces(data.places);
-      }
+  const lookupPlaces = async (id: CountryID) => {
+    setRunning(true);
+    try {
+      const places = await fetchPlaces(query, id);
+      setPlaces(places);
+    } catch (error) {
+      console.error(error);
+    } finally {
       setRunning(false);
     }
   };
@@ -37,6 +49,7 @@ export const useGooglePlaces = () => {
     setQuery,
     running,
     places,
+    lookupPlaces,
     fetchPlaces,
   };
 };

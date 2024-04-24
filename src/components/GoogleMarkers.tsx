@@ -9,25 +9,25 @@ export type GoogleMarkersProps = {
 const GoogleMarkers = ({ places = [], enableBounds = true }: GoogleMarkersProps) => {
   const map = useGoogleMap();
 
-  const updateBounds = (places: GoogleLocation[]) => {
-    if (map && enableBounds) {
-      const bounds = new google.maps.LatLngBounds();
-      places.forEach((place) =>
-        bounds.extend({
-          lat: place.location.latitude,
-          lng: place.location.longitude,
-        })
-      );
-      console.log("updating map bounds", bounds);
-      map.fitBounds(bounds);
-    }
-  };
-
   useEffect(() => {
+    const updateBounds = (places: GoogleLocation[]) => {
+      if (map && enableBounds) {
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) =>
+          bounds.extend({
+            lat: place.location.latitude,
+            lng: place.location.longitude,
+          })
+        );
+        console.log("updating map bounds", bounds);
+        map.fitBounds(bounds);
+      }
+    };
+
     if (map) {
       updateBounds(places);
     }
-  }, [map, places]);
+  }, [map, enableBounds, places]);
 
   return places.map((place) => (
     <Marker

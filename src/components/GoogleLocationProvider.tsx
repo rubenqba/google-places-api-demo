@@ -34,7 +34,7 @@ export const GoogleLocationProvider = ({
       if (selected) {
         setCountryName(selected);
         console.log(`searching country location: ${country}`);
-        return fetch("/api/places", {
+        return fetch("/api/places/search", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
