@@ -4,11 +4,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-## Obtaining the API Key for Google Maps in NextJS
+### Obtaining the API Key for Google Maps in NextJS
 
 To use Google Maps services, such as the Google Maps JavaScript API or Places API, you will need a valid Google API Key. Here's how to get it:
 
 Steps to Obtain the Google Maps API Key
+
 1. Create a project on Google Cloud Platform (GCP):
      - Go to [Google Cloud Console](https://console.cloud.google.com/).
      - Sign in with your Google account if you haven't already.
